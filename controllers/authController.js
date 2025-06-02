@@ -67,7 +67,7 @@ module.exports.handleForgotPassword = async (req, res) => {
   admin.resetTokenExpire = Date.now() + 3600000; // 1 hour expiry
   await admin.save();
 
-  const resetURL = `http://localhost:9000/admin/reset-password/${token}`;
+  const resetURL = `https://svg-service-center.onrender.com/admin/reset-password/${token}`;
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -219,7 +219,7 @@ module.exports.addUser = async (req, res) => {
           <li><strong>Email:</strong> ${email}</li>
           <li><strong>Password:</strong> ${rawPassword}</li>
         </ul>
-        <p>You can login here: <a href="http://localhost:3000/user/login">Login Page</a></p>
+        <p>You can login here: <a href="https://svg-service-center.onrender.com/User/login">Login Page</a></p>
         <br>
         <p>Regards,<br>SVG Admin</p>
       `,

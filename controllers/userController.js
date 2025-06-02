@@ -123,7 +123,7 @@ module.exports.forgotPassword = async (req, res) => {
         user.resetPasswordExpires = expires;
         await user.save();
 
-        const resetURL = `http://localhost:9000/User/reset-password/${token}`;
+        const resetURL = `https://svg-service-center.onrender.com/reset-password/${token}`;
 
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
