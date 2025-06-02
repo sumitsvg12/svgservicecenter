@@ -201,7 +201,7 @@ module.exports.addUser = async (req, res) => {
       secure: false,
       auth: {
         user: 'sumitsvg2409@gmail.com',       // replace with your email
-        pass: 'voebvlkfwvsgjvcs',          // use App Password (not your actual Gmail password)
+        pass: 'pkbbjadkbeiblhcw',          // use App Password (not your actual Gmail password)
       },
       tls: {
         rejectUnauthorized: false
