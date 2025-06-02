@@ -1,0 +1,181 @@
+{
+    "data": [
+      {
+        "_id": "67d51fd7a64b4547ea009ffb",
+        "name": "sumit Gupta",
+        "email": "sumitsvg2409@gmail.com",
+        "address": "\r\n93, Krishna Nagar Society,Near Varj Chowk",
+        "img": "/uploads/img-1742020567622",
+        "hobbies": [
+          "reading"
+        ],
+        "gender": "male",
+        "dob": "2025-03-03",
+        "phone_no": 8128025136,
+        "__v": 0
+      },
+      {
+        "_id": "67d51ffea64b4547ea009ffe",
+        "name": "sumit Gupta",
+        "email": "sumitsvg2424@gmail.com",
+        "address": "Near Varj Chowk\r\n93, Krishna Nagar Society",
+        "img": "/uploads/img-1742020606356",
+        "hobbies": [
+          "reading",
+          "dancing"
+        ],
+        "gender": "male",
+        "dob": "2025-03-03",
+        "phone_no": 8128025179,
+        "__v": 0
+      },
+      {
+        "_id": "67d52025a64b4547ea00a001",
+        "name": "sumit Gupta",
+        "email": "krishnaskumbhani@gmail.com",
+        "address": "Near Varj Chowk\r\n93, Krishna Nagar Society",
+        "img": "/uploads/img-1742020645457",
+        "hobbies": [
+          "reading",
+          "dancing"
+        ],
+        "gender": "male",
+        "dob": "2025-03-03",
+        "phone_no": 9128025173,
+        "__v": 0
+      },
+      {
+        "_id": "67d52070a64b4547ea00a004",
+        "name": "radhika",
+        "email": "ashishgoswami@gmail.com",
+        "address": "93, Krishna Nagar Society,Near Varj Chowk",
+        "img": "/uploads/img-1742020720339",
+        "hobbies": [
+          "reading",
+          "dancing"
+        ],
+        "gender": "female",
+        "dob": "2025-03-03",
+        "phone_no": 8128025136,
+        "__v": 0
+      },
+      {
+        "_id": "67d520bea64b4547ea00a007",
+        "name": "riya sharma",
+        "email": "krishnaskumbhani789@gmail.com",
+        "address": "250,shakti Vijay society, Nana varachha",
+        "img": "/uploads/img-1742020798533",
+        "hobbies": [
+          "reading",
+          "dancing"
+        ],
+        "gender": "male",
+        "dob": "2025-03-03",
+        "phone_no": 8128025189,
+        "__v": 0
+      },
+      {
+        "_id": "67d52105a64b4547ea00a00a",
+        "name": "riya",
+        "email": "krishnaskumbhani258@gmail.com",
+        "address": "250,shakti Vijay society, Nana varachha",
+        "img": "/uploads/img-1742020869181",
+        "hobbies": [
+          "reading",
+          "dancing"
+        ],
+        "gender": "female",
+        "dob": "2025-03-03",
+        "phone_no": 8128025169,
+        "__v": 0
+      },
+      {
+        "_id": "67d52152a64b4547ea00a00d",
+        "name": "sumit Gupta",
+        "email": "Sumitsvg24@gmail.com",
+        "address": "\r\n93, Krishna Nagar Society,Varj Chowk",
+        "img": "/uploads/img-1742020946773",
+        "hobbies": [
+          "reading"
+        ],
+        "gender": "male",
+        "dob": "2025-03-03",
+        "phone_no": 8128025175,
+        "__v": 0
+      },
+      {
+        "_id": "67d5216fa64b4547ea00a010",
+        "name": "sumit Gupta",
+        "email": "sumitsvg2456@gmail.com",
+        "address": "Near Varj Chowk\r\n93, Krishna Nagar Society",
+        "img": "/uploads/img-1742020975875",
+        "hobbies": [
+          "reading"
+        ],
+        "gender": "male",
+        "dob": "2025-03-03",
+        "phone_no": 8128025175,
+        "__v": 0
+      },
+      {
+        "_id": "67d521bca64b4547ea00a013",
+        "name": "ashish",
+        "email": "ashishgoswami589@gmail.com",
+        "address": "233,shivpark society,puna gaam",
+        "img": "/uploads/img-1742021052457",
+        "hobbies": [
+          "reading",
+          "dancing"
+        ],
+        "gender": "male",
+        "dob": "2025-03-03",
+        "phone_no": 8128025175,
+        "__v": 0
+      },
+      {
+        "_id": "67d521e7a64b4547ea00a016",
+        "name": "sumita",
+        "email": "ashishgoswami147@gmail.com",
+        "address": "Near Varj Chowk\r\n93, Krishna Nagar Society",
+        "img": "/uploads/img-1742021095144",
+        "hobbies": [
+          "reading",
+          "dancing"
+        ],
+        "gender": "female",
+        "dob": "2025-03-03",
+        "phone_no": 8128025189,
+        "__v": 0
+      },
+      {
+        "_id": "67d52239a64b4547ea00a019",
+        "name": "divya",
+        "email": "divya23@gmail.com",
+        "address": "420,shakti Vijay society, Nana varachha",
+        "img": "/uploads/img-1742021177410",
+        "hobbies": [
+          "reading",
+          "dancing"
+        ],
+        "gender": "female",
+        "dob": "2025-02-25",
+        "phone_no": 5128025173,
+        "__v": 0
+      },
+      {
+        "_id": "67d5225aa64b4547ea00a01c",
+        "name": "sumit Gupta",
+        "email": "sumitsvg459@gmail.com",
+        "address": "Near Varj Chowk\r\n93, Krishna Nagar Society",
+        "img": "/uploads/img-1742021210877",
+        "hobbies": [
+          "reading",
+          "dancing"
+        ],
+        "gender": "male",
+        "dob": "2025-03-03",
+        "phone_no": 8128025179,
+        "__v": 0
+      }
+    ]
+  }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <%- include("./dashboard") %>
+        <table id="example" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Sr.No</th>
+                    <th>viewservice</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.map((v,i)=>{ %>
+                    <tr>
+                        <td>
+                            <%=i%>
+                        </td>
+                        <td>
+                            <%=v.servicename%>
+                        </td>
+                        <td>
+                            <%=v.newprice%>
+                        </td>
+                    </tr>
+                    <%})%>
+            </tbody>
+        </table>
+</body>
+
+</html>

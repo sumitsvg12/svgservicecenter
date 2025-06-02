@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Edit Customer</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <%- include("../user/dashboard") %>
+    <div class="container-flud">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="container mt-10">
+            <div class="cards">
+              <div class="d-flex justify-content-between align-items-center">
+                <h2 class="card-titles mb-2">Add Customer</h2>
+              </div>
+              <div class="card-body">
+                <h2>Edit Customer</h2>
+                <form method="POST">
+                  <div class="row">
+                    <!-- Full Name -->
+                    <div class="form-group col-md-6">
+                      <label for="full_name">Full Name</label>
+                      <input type="text" name="full_name" class="form-control" placeholder="Enter full name"
+                        value="<%= customer.full_name %>">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="gender">Gender</label>
+                      <select name="gender" class="form-control">
+                        <option value="">--Select Gender--</option>
+                        <option value="Male" <%=customer.gender==="Male" ? "selected" : "" %>>Male
+                        </option>
+                        <option value="Female" <%=customer.gender==="Female" ? "selected" : "" %>
+                          >Female</option>
+                        <option value="Other" <%=customer.gender==="Other" ? "selected" : "" %>
+                          >Other</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="date_of_birth">Date of Birth</label>
+                      <input type="date" name="date_of_birth" class="form-control"
+                        value="<%= customer.date_of_birth %>">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="mobile">Mobile</label>
+                      <input type="text" name="mobile" class="form-control" placeholder="Enter mobile number"
+                        value="<%= customer.mobile %>">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="address">Address</label>
+                      <textarea name="address" class="form-control"
+                        placeholder="Enter address"><%= customer.address %></textarea>
+                    </div></textarea><br>
+
+                    <div class="form-group col-md-6">
+                      <label for="city">City</label>
+                      <input type="text" name="city" class="form-control" placeholder="Enter city"
+                        value="<%= customer.city %>">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group col-md-6">
+                      <label for="email">Email</label>
+                      <input type="email" name="email" class="form-control" placeholder="Enter email"
+                        value="<%= customer.email %>">
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-primary px-3">Update</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+</body>
+
+</html>

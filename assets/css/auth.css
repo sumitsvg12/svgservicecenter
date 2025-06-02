@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url(../img/coment.webp);
+}
+.signin .content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 70px;
+} .signin .content h2 {
+  font-size: 2em;
+  color: #0f0;
+  text-transform: uppercase;
+}
+.signin .content .form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+ .signin .content .form .inputBox {
+  position: relative;
+  width: 100%;
+} 
+.signin .content .form .inputBox input {
+  position: relative;
+  width: 100%;
+  background: #333;
+  border: none;
+  outline: none;
+  padding: 25px 10px 7.5px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.4em;
+}
+ 
+
+.signin .content .form .links {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.signin .content .form .links a {
+  color: #fff;
+  text-decoration: none;
+}
+.signin .content .form .links a:nth-child(2) {
+  color: #0f0;
+  font-weight: 600;
+}
+.signin .content .form .inputBox input[type="submit"] {
+  padding: 10px;
+  background: #0f0;
+  cursor: pointer;
+  color: #000;
+  font-weight: 600;
+  font-size: 1.35em;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+input[type="submit"]:active {
+  opacity: 0.6;
+}
+@media (max-width: 900px) {
+  section span {
+    width: calc(10vw - 2px);
+    height: calc(10vw - 2px);
+  }
+}
+@media (max-width: 600px) {
+  section span {
+    width: calc(20vw - 2px);
+    height: calc(20vw - 2px);
+  }
+}
+/* Default styles for large screens */
+.signin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  z-index: 10;
+}
+
+.content {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 40px 50px;
+  border-radius: 12px;
+  color: #fff;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.inputBox {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.inputBox input[type="text"],
+.inputBox input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  color: #fff;
+}
+
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+/* Tablet view (max-width: 768px) */
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 30px 35px;
+  }
+
+  h2 {
+    font-size: 24px;
+    text-align: center;
+  }
+}
+
+/* Mobile view (max-width: 480px) */
+@media screen and (max-width: 480px) {
+  .content {
+    padding: 25px 20px;
+    margin: 0 10px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .inputBox input[type="text"],
+  .inputBox input[type="submit"] {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .inputBox i {
+    font-size: 12px;
+  }
+}

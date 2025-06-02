@@ -1,0 +1,192 @@
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: black;
+        /* Set background to black */
+    }
+
+    canvas {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .signin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    z-index: 1; /* Ensures it is above the canvas */
+    position: relative;
+    color: white;
+}
+.content {
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 620px;
+}
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* Form table styling */
+form {
+    margin-top: 10px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    color: #fff;
+    text-align: left;
+    font-size: 20px;
+}
+
+td:first-child {
+    text-align: right;
+    padding-right: 15px;
+    color: #ddd;
+}
+
+/* Input field styling */
+input[type="text"],
+input[type="submit"] {
+    width: 90%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input[type="text"] {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+input[type="text"]:focus {
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid #0dbdbd;
+    color: #c20707;
+}
+
+/* Submit button */
+input[type="submit"] {
+    background: #0dbdbd;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background: #0aa1a1;
+}
+.table-form{
+    background-color: rgb(6, 104, 104);
+}
+
+/* Link styling */
+.links {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.links a {
+    color: #0dbdbd;
+    text-decoration: none;
+    font-size: 30px;
+    transition: 0.3s ease;
+}
+
+.links a:hover {
+    color: #0aa1a1;
+    text-decoration: underline;
+}
+
+/* Base styles (for larger screens) */
+.signin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .content {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .table-form {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  /* Tablet screens */
+  @media screen and (max-width: 768px) {
+    .content {
+      padding: 30px;
+    }
+  
+    .table-form {
+      font-size: 16px;
+    }
+  
+    .table-form input[type="text"],
+    .table-form input[type="submit"] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+  
+  /* Mobile screens */
+  @media screen and (max-width: 480px) {
+    .content {
+      padding: 20px;
+      margin: 0 10px;
+    }
+  
+    h1 {
+      font-size: 24px;
+      text-align: center;
+    }
+  
+    .table-form {
+      font-size: 14px;
+    }
+  
+    .table-form td {
+      display: block;
+      width: 100%;
+      padding: 5px 0;
+    }
+  
+    .table-form input[type="text"],
+    .table-form input[type="submit"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+    }
+  
+    .links {
+      text-align: center;
+      margin-top: 15px;
+    }
+  }
+  
