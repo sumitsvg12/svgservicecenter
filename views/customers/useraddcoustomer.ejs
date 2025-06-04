@@ -1,57 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/service.css" type="text/css">
-</head>
 
 
-<script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // Initialize dropdowns
-        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
-        var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-            return new bootstrap.Dropdown(dropdownToggleEl);
-        });
 
-        // Theme toggle functionality
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const themeText = document.getElementById('theme-text');
 
-        // Check for saved theme preference, default to light
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        updateThemeUI(currentTheme);
-
-        // Theme toggle click handler
-        themeToggleBtn.addEventListener('click', function () {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeUI(newTheme);
-        });
-
-        // Update theme UI elements
-        function updateThemeUI(theme) {
-            if (theme === 'dark') {
-                themeIcon.className = 'mdi mdi-weather-sunny';
-                themeText.textContent = 'Light Mode';
-            } else {
-                themeIcon.className = 'mdi mdi-weather-night';
-                themeText.textContent = 'Dark Mode';
-            }
-        }
-    });
-</script>
-
-<body>
     <%- include("../user/dashboard") %>
         <div class="container-flud">
             <div class="main-panel">
@@ -148,6 +99,3 @@
         </div>
         </div>
         </div>
-</body>
-
-</html>

@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="/css/custom.css">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/fonts.min.css">
-
-
+    <link rel="stylesheet" href="/css/responsive.css">
 
     <link rel="stylesheet" href="/css/service.css">
     <link rel="stylesheet" href="/css/materialdesignicons.min.css">
@@ -39,6 +38,9 @@
                     <span class="d-none d-lg-block"><span style="color:#16ff25;">SVG</span> <br />SERVICE<br /><span
                             style="color:#ff6416;">CENTER</span></span>
                 </a>
+                <button class="navbar-toggler" type="button" id="sidebarToggle">
+                    ☰
+                </button>
             </div>
             <% if (admin) { %>
                 <ul class="nav">
@@ -92,13 +94,13 @@
                         </a>
                     </li>
                     <li class="nav-item menu-items">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-servi" aria-expanded="false"
-                            aria-controls="ui-servi">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-user" aria-expanded="false"
+                            aria-controls="ui-user">
 
                             <span class="menu-title">USER</span>
-                            <span>▼</span> 
+                            <span>▼</span>
                         </a>
-                        <div class="collapse" id="ui-servi">
+                        <div class="collapse" id="ui-user">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/admin/add-user">Add
                                         USER</a></li>
@@ -112,7 +114,7 @@
                             aria-controls="ui-basic">
 
                             <span class="menu-title">Manage Service</span>
-                            <span>▼</span> 
+                            <span>▼</span>
                         </a>
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
@@ -125,13 +127,13 @@
                         </div>
                     </li>
                     <li class="nav-item menu-items">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-servi" aria-expanded="false"
-                            aria-controls="ui-servi">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-customer" aria-expanded="false"
+                            aria-controls="ui-customer">
 
                             <span class="menu-title">Manage Customer</span>
-                            <span>▼</span> 
+                            <span>▼</span>
                         </a>
-                        <div class="collapse" id="ui-servi">
+                        <div class="collapse" id="ui-customer">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/customers/addcustomer">Add
                                         Customer</a></li>
@@ -141,13 +143,13 @@
                         </div>
                     </li>
                     <li class="nav-item menu-items">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-servi" aria-expanded="false"
-                            aria-controls="ui-servi">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-billing" aria-expanded="false"
+                            aria-controls="ui-billing">
 
                             <span class="menu-title">Manage Billing</span>
-                            <span>▼</span> 
+                            <span>▼</span>
                         </a>
-                        <div class="collapse" id="ui-servi">
+                        <div class="collapse" id="ui-billing">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="/billing/adddocument">Add
                                         Billing</a></li>
@@ -332,6 +334,18 @@
 
         </script>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const toggleBtn = document.getElementById('sidebarToggle');
+                const sidebar = document.getElementById('sidebar');
+
+                if (toggleBtn && sidebar) {
+                    toggleBtn.addEventListener('click', () => {
+                        sidebar.classList.toggle('show-sidebar'); // Ensure you have a CSS rule for `.sidebar.active` to hide/show
+                    });
+                }
+            });
+        </script>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="/js/retailer-dashboard-charts.js"></script>

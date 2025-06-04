@@ -190,7 +190,7 @@ module.exports.myservicepage=async(req,res)=>{
         const admin = req.session.admin;
         const user = await User.findById(req.session.userId)
         let data = await servicemodel.find();
-        res.render("user/viewservice", { data: data,admin,users });
+        res.render("user/viewservice", { data: data,admin,user });
     }
     catch (err) {
         console.log("Error in showing the data", err);

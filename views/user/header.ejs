@@ -1,42 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>dashboard</title>
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/custom.css">
-  <link rel="stylesheet" href="/css/fonts.css">
-  <link rel="stylesheet" href="/css/fonts.min.css">
-
-
-
-  <link rel="stylesheet" href="/css/service.css">
-  <link rel="stylesheet" href="/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="/css/vendor.bundle.base.css">
-  <!-- Layout styles -->
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/themes.css">
-</head>
-
-<body>
   <div class="container-scroller">
     <style>
       a.logo.d-flex.align-items-center {
         text-decoration: none;
       }
-      span{
+
+      span {
         font-size: 20px;
       }
     </style>
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a href="#" class="logo d-flex align-items-center">
-          <img src="/img/ChatGPT_Image_May_23__2025__08_44_39_PM-removebg-preview.png" alt="logo-1" width="20%">
-          <span class="d-none d-lg-block"><span style="color:#16ff25;">SVG</span> <br />SERVICE<br /><span
-              style="color:#ff6416;">CENTER</span></span>
-        </a>
+        <img src="/img/ChatGPT_Image_May_23__2025__08_44_39_PM-removebg-preview.png" alt="logo-1" width="20%">
+        <span class="d-none d-lg-block"><span style="color:#16ff25;">SVG</span> <br />SERVICE<br /><span
+            style="color:#ff6416;">CENTER</span></span>
       </div>
       <ul class="nav">
         <li class="nav-item profile">
@@ -53,7 +30,7 @@
                 <span>User</span>
               </div>
             </div>
-            
+
             <a href="#" id="profile-dropdown" data-toggle="dropdown">▼</a>
             <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
               aria-labelledby="profile-dropdown">
@@ -94,7 +71,7 @@
           <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
 
             <span class="menu-title">Manage Customer</span>
-           <span>▼</span> 
+            <span>▼</span>
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
@@ -110,7 +87,7 @@
           <a class="nav-link" data-toggle="collapse" href="#ui-servi" aria-expanded="false" aria-controls="ui-servi">
 
             <span class="menu-title">Manage Billing</span>
-            <span>▼</span> 
+            <span>▼</span>
           </a>
           <div class="collapse" id="ui-servi">
             <ul class="nav flex-column sub-menu">
@@ -123,94 +100,11 @@
         </li>
         <li class="nav-item menu-items">
           <a class="nav-link" href="/User/myservicepage">show my service
-            </a>
+          </a>
         </li>
-       
+
       </ul>
 
 
     </nav>
 
-
-    <script src="/js/vendor.bundle.base.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="/js/chart.js"></script>
-    <script src="/js/Chart.min.js"></script>
-    <script src="/js/progressbar.min.js"></script>
-    <script src="/js/jquery-jvectormap.min.js"></script>
-    <script src="/js/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
-
-    <script src="/js/off-canvas.js"></script>
-    <script src="/js/hoverable-collapse.js"></script>
-    <script src="/js/misc.js"></script>
-    <script src="/js/settings.js"></script>
-    <script src="/js/todolist.js"></script>
-    <script src="/js/service-worker.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="/js/dashboard.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker.register('/static/sw.js')
-            .then(function (registration) {
-              console.log('ServiceWorker registration successful');
-            })
-            .catch(function (err) {
-              console.log('ServiceWorker registration failed: ', err);
-            });
-        });
-      }
-    </script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
-        var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-          return new bootstrap.Dropdown(dropdownToggleEl);
-        });
-        console.log("Dropdowns initialized!");
-      });
-
-      let deferredInstallPrompt;
-
-      window.addEventListener('beforeinstallprompt', e => {
-        // Prevent Chrome’s mini-infobar from appearing
-        e.preventDefault();
-        // Stash the event so you can trigger it later.
-        deferredInstallPrompt = e;
-        // Show your “Install” button
-        document.querySelector('#btn-install').style.display = 'block';
-      });
-
-      document.querySelector('#btn-install').addEventListener('click', async () => {
-        // Hide your button:
-        document.querySelector('#btn-install').style.display = 'none';
-        // Show the install prompt
-        deferredInstallPrompt.prompt();
-        // Wait for the user to respond
-        const { outcome } = await deferredInstallPrompt.userChoice;
-        console.log('User response to the install prompt:', outcome);
-        // Clear the saved prompt since it can only be used once
-        deferredInstallPrompt = null;
-      });
-
-    </script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/js/retailer-dashboard-charts.js"></script>
-
-</body>
-
-</html>

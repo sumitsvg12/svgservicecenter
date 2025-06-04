@@ -1,0 +1,48 @@
+@media (max-width: 992px) {
+    #sidebar {
+      position: fixed;
+      top: 60px;         /* navbar height ke hisaab se adjust karein */
+      left: -250px;      /* initially hidden */
+      width: 250px;
+      height: 100%;
+      background: #2c3e50;
+      z-index: 9999;
+      overflow-y: auto;
+      transition: left 0.3s ease-in-out;
+    }
+  
+    #sidebar.active {
+      left: 0;           /* jab active ho to sidebar dikhe */
+    }
+  
+    .main-panel {
+      margin-left: 0 !important; /* sidebar ke liye margin hata dein */
+    }
+  }
+  
+  /* Optional: full width content wrapper on small devices */
+  @media (max-width: 768px) {
+    .content-wrapper {
+      padding: 1rem !important;
+    }
+  
+    .navbar-profile h2 {
+      font-size: 14px;
+    }
+  
+    .navbar-profile img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  @media (max-width: 992px) {
+    .navbar-toggler {
+      display: block !important;
+    }
+  }
+  
+  .doc-img {
+    width: 100px !important;
+    height: unset !important;
+    border-radius: unset !important;
+}

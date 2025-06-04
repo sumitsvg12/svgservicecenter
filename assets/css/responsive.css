@@ -1,0 +1,132 @@
+/* ----- Extra Large Devices (Desktops ≥ 1200px) ----- */
+@media (min-width: 1200px) {
+    .sidebar {
+        width: 250px;
+    }
+}
+
+/* ----- Large Devices (Laptops, Desktops ≥ 992px & < 1200px) ----- */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .profile-name h5 {
+        font-size: 16px;
+    }
+}
+
+/* ----- Medium Devices (Tablets ≥ 768px & < 992px) ----- */
+@media (min-width: 768px) and (max-width: 991px) {
+    .sidebar {
+        position: fixed;
+        width: 200px;
+    }
+
+    .menu-title {
+        font-size: 14px;
+    }
+
+    .profile-name h5 {
+        font-size: 14px;
+    }
+
+    .dropdown-menu {
+        left: auto;
+        right: 0;
+    }
+}
+
+/* ----- Small Devices (Mobiles ≥ 576px & < 768px) ----- */
+@media (min-width: 576px) and (max-width: 767px) {
+    .sidebar {
+        width: 180px;
+        position: absolute;
+        z-index: 999;
+        background-color: #1e1e2f;
+    }
+
+    .menu-title {
+        font-size: 13px;
+    }
+
+    .profile-name h5 {
+        font-size: 13px;
+    }
+
+    .container-scroller {
+        padding-left: 0;
+    }
+}
+
+/* ----- Extra Small Devices (< 576px) ----- */
+@media (max-width: 575px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 999;
+        background-color: #1e1e2f;
+    }
+
+    .profile-desc,
+    .menu-items a,
+    .menu-title {
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .profile-name h5 {
+        font-size: 12px;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+    }
+
+    img.img-xs {
+        width: 40px;
+        height: 40px;
+    }
+}
+.sidebar-offcanvas {
+    left: -250px;
+}
+
+.sidebar-offcanvas.show-sidebar {
+    left: 0;
+}
+
+/* responsive.css or style.css */
+
+@media screen and (max-width: 991px) {
+    .sidebar-offcanvas {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        bottom: 0;
+        left: -250px;
+        width: 250px;
+        overflow-y: auto;
+        background-color: #2a2a2a;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-offcanvas.active {
+        left: 0;
+    }
+
+    .page-body-wrapper {
+        padding-left: 0 !important;
+    }
+}
+
+.sidebar {
+    transition: transform 0.3s ease;
+}
+
+@media screen and (min-width: 992px) {
+    .sidebar-offcanvas {
+        left: 0 !important;
+    }
+}
