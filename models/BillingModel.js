@@ -59,7 +59,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: async (req, file) => ({
         folder: 'billing_docs',
-        public_id: file.fieldname + '-' + Date.now(),
+        public_id: `${file.fieldname}-${Date.now()}-${Math.round(Math.random() * 1E6)}`,
         resource_type: 'auto'
     })
 });

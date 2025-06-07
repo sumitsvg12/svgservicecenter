@@ -29,18 +29,18 @@ module.exports.addbilling = async (req, res) => {
     try {
         let files = req.files;
 
-        const othersFiles = files.others ? files.others.map(f => f.filename) : [];
+        const othersFiles = files.others ? files.others.map(f => f.path) : [];
 
 
         const billing = new Billing({
             customer: req.body.customer,
             ServiceName: req.body.ServiceName,
             pan_card: req.body.pan_card,
-            id_proof: files?.id_proof?.[0]?.filename || '',
-            address_proof: files?.address_proof?.[0]?.filename || '',
-            banking: files.banking ? files.banking[0].filename : '',
-            photo: files.photo ? files.photo[0].filename : '',
-            others: othersFiles,
+            id_proof: files?.id_proof?.[0]?.path || '',
+            address_proof: files?.address_proof?.[0]?.path || '',
+            banking: files.banking ? files.banking[0].path : '',
+            photo: files.photo ? files.photo[0].path : '',
+            others: othersFiles, // update othersFiles below
             addedBy: req.session.admin._id
         });
 
@@ -90,40 +90,69 @@ module.exports.updateBilling = async (req, res) => {
         // console.log(files)
 
         // Directory where files are stored (adjust path if needed)
-        const uploadPath = path.join(__dirname, '..', 'uploads', 'billing_docs');
+        const uploadPath = path.join(__dirname, '..', 'uploads', 'billing_docs'); // adjust if needed
+
         // console.log(uploadPath)
 
         // Helper to delete old file
-        function deleteOldFile(oldFileName) {
-            if (oldFileName) {
-                const filePath = path.join(uploadPath, oldFileName);
+        async function deleteFile(oldFilePath) {
+            if (!oldFilePath) return;
+        
+            if (oldFilePath.startsWith('http')) {
+                // Cloudinary URL
+                try {
+                    const parts = oldFilePath.split('/');
+                    const filenameWithExt = parts.pop();
+                    const publicId = filenameWithExt.split('.').slice(0, -1).join('.');
+                    const uploadIndex = parts.findIndex(p => p === 'upload');
+                    let publicIdPath = parts.slice(uploadIndex + 1).filter(p => !p.startsWith('v')).join('/');
+                    const fullPublicId = publicIdPath ? `${publicIdPath}/${publicId}` : publicId;
+        
+                    await cloudinary.uploader.destroy(fullPublicId, function (error, result) {
+                        if (error) {
+                            console.error("Cloudinary deletion error:", error);
+                        } else {
+                            console.log("Deleted Cloudinary file:", fullPublicId);
+                        }
+                    });
+                } catch (err) {
+                    console.error("Cloudinary delete failed:", err);
+                }
+            } else {
+                // Local file
+                const filePath = path.join(uploadPath, path.basename(oldFilePath));
                 if (fs.existsSync(filePath)) {
                     fs.unlinkSync(filePath);
-                    console.log('Deleted old file:', filePath);
+                    console.log('Deleted local file:', filePath);
                 }
             }
         }
+      
 
-        if (files?.id_proof?.[0]?.filename) {
-            deleteOldFile(billing.id_proof);
-            billing.id_proof = files.id_proof[0].filename;
+        if (files?.id_proof?.[0]?.path) {
+            await deleteFile(billing.id_proof);
+            billing.id_proof = files.id_proof[0].path;
         }
-        if (files?.address_proof?.[0]?.filename) {
-            deleteOldFile(billing.address_proof);
-            billing.address_proof = files.address_proof[0].filename;
+        if (files?.address_proof?.[0]?.path) {
+            deleteFile(billing.address_proof);
+            billing.address_proof = files.address_proof[0].path;
         }
 
-        if (files?.banking?.[0]?.filename) {
-            deleteOldFile(billing.banking);
-            billing.banking = files.banking[0].filename;
+        if (files?.banking?.[0]?.path) {
+            deleteFile(billing.banking);
+            billing.banking = files.banking[0].path;
         }
-        if (files?.photo?.[0]?.filename) {
-            deleteOldFile(billing.photo);
-            billing.photo = files.photo[0].filename;
+        if (files?.photo?.[0]?.path) {
+            deleteFile(billing.photo);
+            billing.photo = files.photo[0].path;
         }
         if (files?.others?.length > 0) {
-            billing.others.forEach(file => deleteOldFile(file));
-            billing.others = files.others.map(file => file.filename);
+            if (billing.others && billing.others.length > 0) {
+                for (const file of billing.others) {
+                    await deleteFile(file);
+                }
+            }
+            billing.others = files.others.map(f => f.path);
         }
         billing.customer = req.body.customer;
 
@@ -195,16 +224,16 @@ module.exports.adduserbilling = async (req, res) => {
     try {
         let files = req.files;
 
-        const othersFiles = files.others ? files.others.map(f => f.filename) : [];
+        const othersFiles = files.others ? files.others.map(f => f.path) : [];
 
         const billing = new Billing({
             customer: req.body.customer,
             ServiceName: req.body.ServiceName,
             pan_card: req.body.pan_card,
-            id_proof: files?.id_proof?.[0]?.filename || '',
-            address_proof: files?.address_proof?.[0]?.filename || '',
-            banking: files.banking ? files.banking[0].filename : '',
-            photo: files.photo ? files.photo[0].filename : '',
+            id_proof: files?.id_proof?.[0]?.path || '',
+            address_proof: files?.address_proof?.[0]?.path || '',
+            banking: files.banking ? files.banking[0].path : '',
+            photo: files.photo ? files.photo[0].path : '',
             others: othersFiles,
             addedBy: req.session.userId,
 
@@ -259,36 +288,65 @@ module.exports.updateUserBilling = async (req, res) => {
         // console.log(uploadPath)
 
         // Helper to delete old file
-        function deleteOldFile(oldFileName) {
-            if (oldFileName) {
-                const filePath = path.join(uploadPath, oldFileName);
+        async function deleteFile(oldFilePath) {
+            if (!oldFilePath) return;
+        
+            if (oldFilePath.startsWith('http')) {
+                // Cloudinary URL
+                try {
+                    const parts = oldFilePath.split('/');
+                    const filenameWithExt = parts.pop();
+                    const publicId = filenameWithExt.split('.').slice(0, -1).join('.');
+                    const uploadIndex = parts.findIndex(p => p === 'upload');
+                    let publicIdPath = parts.slice(uploadIndex + 1).filter(p => !p.startsWith('v')).join('/');
+                    const fullPublicId = publicIdPath ? `${publicIdPath}/${publicId}` : publicId;
+        
+                    await cloudinary.uploader.destroy(fullPublicId, function (error, result) {
+                        if (error) {
+                            console.error("Cloudinary deletion error:", error);
+                        } else {
+                            console.log("Deleted Cloudinary file:", fullPublicId);
+                        }
+                    });
+                } catch (err) {
+                    console.error("Cloudinary delete failed:", err);
+                }
+            } else {
+                // Local file
+                const filePath = path.join(uploadPath, path.basename(oldFilePath));
                 if (fs.existsSync(filePath)) {
                     fs.unlinkSync(filePath);
-                    console.log('Deleted old file:', filePath);
+                    console.log('Deleted local file:', filePath);
                 }
             }
         }
-        if (files?.id_proof?.[0]?.filename) {
-            deleteOldFile(billing.id_proof);
-            billing.id_proof = files.id_proof[0].filename;
+      
+
+        if (files?.id_proof?.[0]?.path) {
+            await deleteFile(billing.id_proof);
+            billing.id_proof = files.id_proof[0].path;
         }
-        if (files?.address_proof?.[0]?.filename) {
-            deleteOldFile(billing.address_proof);
-            billing.address_proof = files.address_proof[0].filename;
+        if (files?.address_proof?.[0]?.path) {
+            deleteFile(billing.address_proof);
+            billing.address_proof = files.address_proof[0].path;
         }
-        if (files?.banking?.[0]?.filename) {
-            deleteOldFile(billing.banking);
-            billing.banking = files.banking[0].filename;
+
+        if (files?.banking?.[0]?.path) {
+            deleteFile(billing.banking);
+            billing.banking = files.banking[0].path;
         }
-        if (files?.photo?.[0]?.filename) {
-            deleteOldFile(billing.photo);
-            billing.photo = files.photo[0].filename;
+        if (files?.photo?.[0]?.path) {
+            deleteFile(billing.photo);
+            billing.photo = files.photo[0].path;
         }
         if (files?.others?.length > 0) {
-            billing.others.forEach(file => deleteOldFile(file));
-            billing.others = files.others.map(file => file.filename);
+            if (billing.others && billing.others.length > 0) {
+                for (const file of billing.others) {
+                    await deleteFile(file);
+                }
+            }
+            billing.others = files.others.map(f => f.path);
         }
-        billing.customer = req.body.customer;
 
         billing.ServiceName = req.body.ServiceName;
         billing.pan_card = req.body.pan_card;
@@ -428,7 +486,7 @@ module.exports.downloadBilling = async (req, res) => {
 
         await archive.finalize();
 
-       // After sending zip, delete temp files and folder
+        // After sending zip, delete temp files and folder
         archive.on('end', () => {
             fs.rmSync(tempDir, { recursive: true, force: true });
         });

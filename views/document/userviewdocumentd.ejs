@@ -1,3 +1,10 @@
+<style>
+    .doc-img {
+        width: 120px !important;
+        height: unset !important;
+        border-radius: unset !important;
+    }
+</style>
 <%- include("../user/dashboard") %>
     <div class="main-panel">
         <div class="content-wrapper">
@@ -46,8 +53,7 @@
                                                 <% if (v.id_proof.endsWith('.pdf')) { %>
                                                     <a href="<%= v.id_proof %>" target="_blank">View PDF</a>
                                                     <% } else { %>
-                                                        <img src="<%= v.id_proof %>" alt="ID Proof"
-                                                            style="max-width: 300px;">
+                                                        <img src="<%= v.id_proof %>" alt="ID Proof" class="doc-img">
                                                         <% } %>
                                                             <% } %>
                                         </td>
@@ -58,7 +64,7 @@
                                                     <a href="<%= v.address_proof %>" target="_blank">View PDF</a>
                                                     <% } else { %>
                                                         <img src="<%= v.address_proof %>" alt="Address Proof"
-                                                            style="max-width: 300px;">
+                                                            class="doc-img">
                                                         <% } %>
                                                             <% } %>
                                         </td>
@@ -72,8 +78,7 @@
                                                 <% if (v.banking.endsWith('.pdf')) { %>
                                                     <a href="<%= v.banking %>" target="_blank">View PDF</a>
                                                     <% } else { %>
-                                                        <img src="<%= v.banking %>" alt="banking Proof"
-                                                            style="max-width: 300px;">
+                                                        <img src="<%= v.banking %>" alt="banking Proof" class="doc-img">
                                                         <% } %>
                                                             <% } %>
 
@@ -84,7 +89,7 @@
                                                 <% if (v.photo.endsWith('.pdf')) { %>
                                                     <a href="<%= v.photo %>" target="_blank">View PDF</a>
                                                     <% } else { %>
-                                                        <img src="<%= v.photo %>" alt="photo" style="max-width: 300px;">
+                                                        <img src="<%= v.photo %>" alt="photo" class="doc-img">
                                                         <% } %>
                                                             <% } %>
                                         </td>
@@ -96,7 +101,7 @@
                                                         <a href="<%= doc %>" target="_blank">View PDF</a><br>
                                                         <% } else { %>
                                                             <img src="<%= doc %>" alt="Other Document"
-                                                                style="max-width: 200px; margin: 10px;"><br>
+                                                                class="doc-img"><br>
                                                             <% } %>
                                                                 <% }) %>
                                                                     <% } else { %>
