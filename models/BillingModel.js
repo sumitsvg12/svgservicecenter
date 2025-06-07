@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
-
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 // Folder to store uploads
-const BILLING_DOCS_PATH = '/uploads/billing_docs';
+// const BILLING_DOCS_PATH = '/uploads/billing_docs';
+const cloudinary = require('../config/cloudinary'); // adjust path
 
 // Mongoose schema
 const billingSchema = new mongoose.Schema({
@@ -54,20 +55,30 @@ const billingSchema = new mongoose.Schema({
 });
 
 // Multer storage configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '..', BILLING_DOCS_PATH));
-    },
-    filename: function (req, file, cb) {
-        const ext = path.extname(file.originalname);
-        cb(null, file.fieldname + '-' + Date.now() + ext);
-    }
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: async (req, file) => ({
+        folder: 'billing_docs',
+        public_id: file.fieldname + '-' + Date.now(),
+        resource_type: 'auto'
+    })
 });
 
 // Multer upload (fields version for multiple files)
-billingSchema.statics.uploadedFiles = multer({
-    storage: storage
-}).fields([
+const upload = multer({
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        const allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+        if (allowedMimeTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Only JPEG, PNG, and PDF files are allowed'));
+        }
+    }
+});
+
+billingSchema.statics.uploadedFiles = upload.fields([
     { name: 'id_proof', maxCount: 1 },
     { name: 'address_proof', maxCount: 1 },
     { name: 'banking', maxCount: 1 },
@@ -75,7 +86,8 @@ billingSchema.statics.uploadedFiles = multer({
     { name: 'others', maxCount: 10 }
 ]);
 
-billingSchema.statics.docsPath = BILLING_DOCS_PATH;
+
+
 
 const Billing = mongoose.model('Billing', billingSchema);
 module.exports = Billing;

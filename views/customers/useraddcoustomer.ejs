@@ -1,101 +1,93 @@
+<%- include("../user/dashboard") %>
 
-
-
-
-
-    <%- include("../user/dashboard") %>
-        <div class="container-flud">
-            <div class="main-panel">
-                <div class="content-wrapper">
-                    <div class="container mt-10">
-                        <div class="cards">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-titles mb-2">Add Customer</h2>
-                            </div>
-                            <div class="card-body">
-                                <form method="POST" action="/customers/user/addcustomer">
-                                    <div class="row">
-                                        <!-- Full Name -->
-                                        <div class="form-group col-md-6">
-                                            <label for="full_name">Full Name</label>
-                                            <input type="text" name="full_name" class="form-control"
-                                                placeholder="Enter full name">
-                                        </div>
-
-                                        <!-- Gender -->
-                                        <div class="form-group col-md-6">
-                                            <label for="gender">Gender</label>
-                                            <select name="gender" class="form-control">
-                                                <option value="">--Select Gender--</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-
-                                        <!-- DOB -->
-                                        <div class="form-group col-md-6">
-                                            <label for="date_of_birth">Date of Birth</label>
-                                            <input type="date" name="date_of_birth" class="form-control">
-                                        </div>
-
-                                        <!-- Mobile Number -->
-                                        <div class="form-group col-md-6">
-                                            <label for="mobile">Mobile</label>
-                                            <input type="text" name="mobile" class="form-control"
-                                                placeholder="Enter mobile number">
-                                        </div>
-
-                                        <!-- Address -->
-                                        <div class="form-group col-md-6">
-                                            <label for="address">Address</label>
-                                            <textarea name="address" class="form-control"
-                                                placeholder="Enter address"></textarea>
-                                        </div>
-
-                                        <!-- State -->
-                                        <div class="form-group col-md-6">
-                                            <label for="state">State</label>
-                                            <input type="text" name="state" class="form-control"
-                                                placeholder="Enter state">
-                                        </div>
-
-                                        <!-- City -->
-                                        <div class="form-group col-md-6">
-                                            <label for="city">City</label>
-                                            <input type="text" name="city" class="form-control"
-                                                placeholder="Enter city">
-                                        </div>
-
-                                        <!-- Email -->
-                                        <div class="form-group col-md-6">
-                                            <label for="email">Email</label>
-                                            <input type="email" name="email" class="form-control"
-                                                placeholder="Enter email">
-                                        </div>
-                                    </div>
-
-                                    <!-- Submit Button -->
-                                    <div class="form-group mt-3">
-                                        <button type="submit" class="btn btn-primary px-3">Submit</button>
-                                    </div>
-                                </form>
-
-
-                            </div>
-                        </div>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="container mt-10">
+                <div class="cards">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="card-titles mb-2">Add Customer</h2>
                     </div>
+                    <div class="card-body">
+                        <form method="POST" action="/customers/user/addcustomer">
+                            <div class="row">
+                                <!-- Full Name -->
+                                <div class="form-group col-md-6">
+                                    <label for="full_name">Full Name</label>
+                                    <input type="text" name="full_name" class="form-control"
+                                        placeholder="Enter full name">
+                                </div>
 
+                                <!-- Gender -->
+                                <div class="form-group col-md-6">
+                                    <label for="gender">Gender</label>
+                                    <select name="gender" class="form-control">
+                                        <option value="">--Select Gender--</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <!-- DOB -->
+                                <div class="form-group col-md-6">
+                                    <label for="date_of_birth">Date of Birth</label>
+                                    <input type="date" name="date_of_birth" class="form-control">
+                                </div>
+
+                                <!-- Mobile Number -->
+                                <div class="form-group col-md-6">
+                                    <label for="mobile">Mobile</label>
+                                    <input type="text" name="mobile" class="form-control"
+                                        placeholder="Enter mobile number">
+                                </div>
+
+                                <!-- Address -->
+                                <div class="form-group col-md-6">
+                                    <label for="address">Address</label>
+                                    <textarea name="address" class="form-control"
+                                        placeholder="Enter address"></textarea>
+                                </div>
+
+                                <!-- State -->
+                                <div class="form-group col-md-6">
+                                    <label for="state">State</label>
+                                    <input type="text" name="state" class="form-control" placeholder="Enter state">
+                                </div>
+
+                                <!-- City -->
+                                <div class="form-group col-md-6">
+                                    <label for="city">City</label>
+                                    <input type="text" name="city" class="form-control" placeholder="Enter city">
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group col-md-6">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Enter email">
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary px-3">Submit</button>
+                            </div>
+                        </form>
+
+
+                    </div>
                 </div>
             </div>
 
+        </div>
+    </div>
 
-        </div>
 
-        <footer class="footer"
-            style="background-color: #1e293b; color: #e5e7eb; text-align: center; padding: 15px; border-top: 1px solid #4a5568; flex-shrink: 0;">
-            <span>Copyright © SVG SERVICE CENTER 2025</span>
-        </footer>
-        </div>
-        </div>
-        </div>
+
+
+    <footer class="footer"
+        style="background-color: #1e293b; color: #e5e7eb; text-align: center; padding: 15px; border-top: 1px solid #4a5568; flex-shrink: 0;">
+        <span>Copyright © SVG SERVICE CENTER 2025</span>
+    </footer>
+    </div>
+    </div>
+    </div>

@@ -1,15 +1,15 @@
 const bcrypt = require('bcrypt');
 
 const Admin = require('../models/Admin');
-const nodemailer = require('nodemailer');
-const User = require('../models/User');
-
-const Datamodel = require("../models/databasemodel");
-
 const Billing = require('../models/BillingModel');
+const User = require('../models/User');
+const Datamodel = require("../models/databasemodel");
+const nodemailer = require('nodemailer');
 const archiver = require('archiver');
 const fs = require("fs");
 const path = require("path");
+const axios = require('axios');
+const os = require('os');
 
 
 //admin//
@@ -30,6 +30,7 @@ module.exports.addbilling = async (req, res) => {
         let files = req.files;
 
         const othersFiles = files.others ? files.others.map(f => f.filename) : [];
+
 
         const billing = new Billing({
             customer: req.body.customer,
@@ -374,32 +375,64 @@ module.exports.updateBillingStatus = async (req, res) => {
     }
 }
 
+async function downloadFile(url, outputPath) {
+    const writer = fs.createWriteStream(outputPath);
+    const response = await axios({
+        url,
+        method: 'GET',
+        responseType: 'stream',
+    });
+    response.data.pipe(writer);
+    return new Promise((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+    });
+}
 module.exports.downloadBilling = async (req, res) => {
     try {
         const billing = await Billing.findById(req.params.id);
         if (!billing) return res.status(404).send('Not Found');
 
-        const archive = archiver('zip');
+        const archive = archiver('zip', { zlib: { level: 9 } });
         res.attachment(`billing-${billing.customer}.zip`);
+        archive.on('error', err => { throw err; });
         archive.pipe(res);
 
-        const fields = ['id_proof', 'address_proof', 'banking', 'photo'];
-        fields.forEach(field => {
-            const filePath = path.join(__dirname, '../uploads/billing_docs', billing[field]);
-            if (fs.existsSync(filePath)) {
-                archive.file(filePath, { name: `${field}-${billing[field]}` });
-            }
-        });
+        // Temp folder for downloads
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'billing-'));
 
-        // others (array)
-        billing.others.forEach(file => {
-            const filePath = path.join(__dirname, '../uploads/billing_docs', file);
-            if (fs.existsSync(filePath)) {
-                archive.file(filePath, { name: `others-${file}` });
+        // List of fields with Cloudinary URLs
+        const fields = ['id_proof', 'address_proof', 'banking', 'photo'];
+        // Download each file and append to archive
+        for (const field of fields) {
+            if (billing[field]) {
+                const url = billing[field];  // Assuming billing[field] contains Cloudinary URL
+                const filename = path.basename(url);
+                const tempFilePath = path.join(tempDir, `${field}-${filename}`);
+
+                await downloadFile(url, tempFilePath);
+                archive.file(tempFilePath, { name: `${field}-${filename}` });
             }
-        });
+        }
+
+        // Others array
+        if (billing.others && billing.others.length > 0) {
+            for (const fileUrl of billing.others) {
+                const filename = path.basename(fileUrl);
+                const tempFilePath = path.join(tempDir, `others-${filename}`);
+
+                await downloadFile(fileUrl, tempFilePath);
+                archive.file(tempFilePath, { name: `others-${filename}` });
+            }
+        }
 
         await archive.finalize();
+
+       // After sending zip, delete temp files and folder
+        archive.on('end', () => {
+            fs.rmSync(tempDir, { recursive: true, force: true });
+        });
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
