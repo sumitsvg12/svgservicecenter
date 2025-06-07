@@ -1,143 +1,188 @@
-
-    <%- include("../user/dashboard") %>
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div class="container mt-10">
-                    <div class="cards">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h2 class="card-titles mb-2">View Billing</h2>
-                        </div>
-                        <form method="get" class="form-inline mb-3">
-                            <input type="text" name="search" value="" class="form-control"
-                                placeholder="Search GSK Users">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </form>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead>
+<%- include("../user/dashboard") %>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="container mt-10">
+                <div class="cards">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="card-titles mb-2">View Billing</h2>
+                    </div>
+                    <form method="get" class="form-inline mb-3">
+                        <input type="text" name="search" value="" class="form-control" placeholder="Search GSK Users">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>S.NO.</th>
+                                    <th>Customer Name</th>
+                                    <th>ServiceName</th>
+                                    <th>id_proof</th>
+                                    <th>address_proof</th>
+                                    <th>pan_card</th>
+                                    <th>banking</th>
+                                    <th>photo</th>
+                                    <th>others</th>
+                                    <th>Actions</th>
+                                    <th>Status</th>
+                                    <th>payment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% billings.map((v,i)=>{ %>
                                     <tr>
-                                        <th>S.NO.</th>
-                                        <th>Customer Name</th>
-                                        <th>ServiceName</th>
-                                        <th>id_proof</th>
-                                        <th>address_proof</th>
-                                        <th>pan_card</th>
-                                        <th>banking</th>
-                                        <th>photo</th>
-                                        <th>others</th>
-                                        <th>Actions</th>
-                                        <th>Status</th>
-                                        <th>payment</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% billings.map((v,i)=>{ %>
-                                        <tr>
-                                            <td>
-                                                <%=i%>
-                                            </td>
-                                            <td>
-                                                <%=v.customer%>
-                                            </td>
-                                            <td>
-                                                <%=v.ServiceName%>
-                                            </td>
-                                            <td><img src="/uploads/billing_docs/<%= v.id_proof %>" class="doc-img"></td>
-                                            <td><img src="/uploads/billing_docs/<%= v.address_proof %>" class="doc-img">
-                                            </td>
-                                            <td>
-                                                <%=v.pan_card%>
-                                            </td>
-                                            <td><img src="/uploads/billing_docs/<%= v.banking %>" class="doc-img"></td>
-                                            <td><img src="/uploads/billing_docs/<%= v.photo %>" class="doc-img"></td>
-                                            <td>
-                                                <% v.others.forEach(file=> { %>
-                                                    <img src="/uploads/billing_docs/<%= file %>" class="doc-img">
-                                                    <% }) %>
-                                            </td>
-                                            <td>
-                                                <a href="/billing/usergetbilling/<%=v._id%>"
-                                                    class="btn btn-warning">Edit</a>
-                                                <a href="/billing/userdeletebilling/<%=v._id%>" class="btn btn-danger "
-                                                    onclick="return confirm('Are you sure you want to delete this customer?');">Delete</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn-warning btn">
-                                                    <%= v.status %>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <% if (v.paymentStatus==='Paid' ) { %>
-                                                    <span class="badge badge-success"><span class="badge badge-success">
-                                                            ✅ Payment Completed
-                                                        </span></span>
+                                        <td>
+                                            <%=i%>
+                                        </td>
+                                        <td>
+                                            <%=v.customer%>
+                                        </td>
+                                        <td>
+                                            <%=v.ServiceName%>
+                                        </td>
+                                        <td>
+                                            <p><strong>ID Proof:</strong></p>
+                                            <% if (v.id_proof) { %>
+                                                <% if (v.id_proof.endsWith('.pdf')) { %>
+                                                    <a href="<%= v.id_proof %>" target="_blank">View PDF</a>
                                                     <% } else { %>
-                                                        <button type="button" class="btn btn-primary"
-                                                            data-toggle="modal" data-target="#qrModal<%= i %>">Pay
-                                                            Now</button>
+                                                        <img src="<%= v.id_proof %>" alt="ID Proof"
+                                                            style="max-width: 300px;">
+                                                        <% } %>
+                                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <p><strong>Address Proof:</strong></p>
+                                            <% if (v.address_proof) { %>
+                                                <% if (v.address_proof.endsWith('.pdf')) { %>
+                                                    <a href="<%= v.address_proof %>" target="_blank">View PDF</a>
+                                                    <% } else { %>
+                                                        <img src="<%= v.address_proof %>" alt="Address Proof"
+                                                            style="max-width: 300px;">
+                                                        <% } %>
+                                                            <% } %>
+                                        </td>
+                                        </td>
+                                        <td>
+                                            <%=v.pan_card%>
+                                        </td>
+                                        <td>
+                                            <p><strong>banking Proof:</strong></p>
+                                            <% if (v.banking) { %>
+                                                <% if (v.banking.endsWith('.pdf')) { %>
+                                                    <a href="<%= v.banking %>" target="_blank">View PDF</a>
+                                                    <% } else { %>
+                                                        <img src="<%= v.banking %>" alt="banking Proof"
+                                                            style="max-width: 300px;">
+                                                        <% } %>
+                                                            <% } %>
 
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="qrModal<%= i %>" tabindex="-1"
-                                                            role="dialog" aria-labelledby="qrModalLabel"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered"
-                                                                role="document">
-                                                                <div class="modal-content text-center p-4">
-                                                                    <h5 class="modal-title mb-3">Scan QR to Pay</h5>
+                                        </td>
+                                        <td>
+                                            <p><strong>photo:</strong></p>
+                                            <% if (v.photo) { %>
+                                                <% if (v.photo.endsWith('.pdf')) { %>
+                                                    <a href="<%= v.photo %>" target="_blank">View PDF</a>
+                                                    <% } else { %>
+                                                        <img src="<%= v.photo %>" alt="photo" style="max-width: 300px;">
+                                                        <% } %>
+                                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <p><strong>Other Documents:</strong></p>
+                                            <% if (v.others && v.others.length> 0) { %>
+                                                <% v.others.forEach(doc=> { %>
+                                                    <% if (doc.endsWith('.pdf')) { %>
+                                                        <a href="<%= doc %>" target="_blank">View PDF</a><br>
+                                                        <% } else { %>
+                                                            <img src="<%= doc %>" alt="Other Document"
+                                                                style="max-width: 200px; margin: 10px;"><br>
+                                                            <% } %>
+                                                                <% }) %>
+                                                                    <% } else { %>
+                                                                        <p>No other documents uploaded.</p>
+                                                                        <% } %>
+                                        </td>
+                                        <td>
+                                            <a href="/billing/usergetbilling/<%=v._id%>"
+                                                class="btn btn-warning">Edit</a>
+                                            <a href="/billing/userdeletebilling/<%=v._id%>" class="btn btn-danger "
+                                                onclick="return confirm('Are you sure you want to delete this customer?');">Delete</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn-warning btn">
+                                                <%= v.status %>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <% if (v.paymentStatus==='Paid' ) { %>
+                                                <span class="badge badge-success"><span class="badge badge-success">
+                                                        ✅ Payment Completed
+                                                    </span></span>
+                                                <% } else { %>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#qrModal<%= i %>">Pay
+                                                        Now</button>
 
-                                                                    <!-- Updated Image Styling -->
-                                                                    <img src="/img/WhatsApp Image 2025-06-02 at 15.53.40_ea419293.jpg"
-                                                                        alt="QR Code" class="img-fluid w-100"
-                                                                        style="max-width: 100%; height: auto; border-radius: 0;">
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="qrModal<%= i %>" tabindex="-1"
+                                                        role="dialog" aria-labelledby="qrModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content text-center p-4">
+                                                                <h5 class="modal-title mb-3">Scan QR to Pay</h5>
 
-                                                                    <p class="mt-3">After payment, please wait for admin
-                                                                        confirmation.</p>
-                                                                    <button type="button" class="btn btn-secondary mt-2"
-                                                                        data-dismiss="modal"
-                                                                        onclick='notifyAdmin("<%= i %>")'>Close</button>
-                                                                </div>
+                                                                <!-- Updated Image Styling -->
+                                                                <img src="/img/WhatsApp Image 2025-06-02 at 15.53.40_ea419293.jpg"
+                                                                    alt="QR Code" class="img-fluid w-100"
+                                                                    style="max-width: 100%; height: auto; border-radius: 0;">
+
+                                                                <p class="mt-3">After payment, please wait for admin
+                                                                    confirmation.</p>
+                                                                <button type="button" class="btn btn-secondary mt-2"
+                                                                    data-dismiss="modal"
+                                                                    onclick='notifyAdmin("<%= i %>")'>Close</button>
                                                             </div>
                                                         </div>
-                                                        <% } %>
-                                            </td>
+                                                    </div>
+                                                    <% } %>
+                                        </td>
 
-                                        </tr>
-                                        <%})%>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <nav>
-                            <ul class="pagination">
-                                <!-- Previous Page -->
-
-                                <!-- Always Show First Page -->
-                                <li class="page-item active">
-                                    <a class="page-link" href="?page=1">1</a>
-                                </li>
-                            </ul>
-                        </nav>
-
+                                    </tr>
+                                    <%})%>
+                            </tbody>
+                        </table>
                     </div>
+
+                    <nav>
+                        <ul class="pagination">
+                            <!-- Previous Page -->
+
+                            <!-- Always Show First Page -->
+                            <li class="page-item active">
+                                <a class="page-link" href="?page=1">1</a>
+                            </li>
+                        </ul>
+                    </nav>
+
                 </div>
             </div>
         </div>
-        <script>
-            function notifyAdmin(index) {
-              fetch('/notify-admin', {
+    </div>
+    <script>
+        function notifyAdmin(index) {
+            fetch('/notify-admin', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ index }) // or send id/email/etc if needed
-              })
-              .then(res => res.json())
-              .then(data => {
-                console.log("Admin notified:", data.message);
-              })
-              .catch(err => {
-                console.error("Error notifying admin:", err);
-              });
-            }
-          </script>
-
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("Admin notified:", data.message);
+                })
+                .catch(err => {
+                    console.error("Error notifying admin:", err);
+                });
+        }
+    </script>

@@ -226,22 +226,60 @@
                                                 <td>
                                                     <%=v.ServiceName%>
                                                 </td>
-                                                <td><img src="/uploads/billing_docs/<%= v.id_proof %>" class="doc-img">
+                                                <td><p><strong>ID Proof:</strong></p>
+                                                    <% if (v.id_proof) { %>
+                                                        <% if (v.id_proof.endsWith('.pdf')) { %>
+                                                            <a href="<%= v.id_proof %>" target="_blank">View PDF</a>
+                                                        <% } else { %>
+                                                            <img src="<%= v.id_proof %>" alt="ID Proof" style="max-width: 300px;">
+                                                        <% } %>
+                                                    <% } %>
                                                 </td>
-                                                <td><img src="/uploads/billing_docs/<%= v.address_proof %>"
-                                                        class="doc-img">
+                                                <td><p><strong>Address Proof:</strong></p>
+                                                    <% if (v.address_proof) { %>
+                                                        <% if (v.address_proof.endsWith('.pdf')) { %>
+                                                            <a href="<%= v.address_proof %>" target="_blank">View PDF</a>
+                                                        <% } else { %>
+                                                            <img src="<%= v.address_proof %>" alt="Address Proof" style="max-width: 300px;">
+                                                        <% } %>
+                                                    <% } %>
                                                 </td>
                                                 <td>
                                                     <%=v.pan_card%>
                                                 </td>
-                                                <td><img src="/uploads/billing_docs/<%= v.banking %>" class="doc-img">
-                                                </td>
-                                                <td><img src="/uploads/billing_docs/<%= v.photo %>" class="doc-img">
+                                                <td><p><strong>banking Proof:</strong></p>
+                                                    <% if (v.banking) { %>
+                                                        <% if (v.banking.endsWith('.pdf')) { %>
+                                                            <a href="<%= v.banking %>" target="_blank">View PDF</a>
+                                                        <% } else { %>
+                                                            <img src="<%= v.banking %>" alt="banking Proof" style="max-width: 300px;">
+                                                        <% } %>
+                                                    <% } %>
+                                                    
                                                 </td>
                                                 <td>
-                                                    <% v.others.forEach(file=> { %>
-                                                        <img src="/uploads/billing_docs/<%= file %>" class="doc-img">
+                                                    <p><strong>photo:</strong></p>
+                                                    <% if (v.photo) { %>
+                                                        <% if (v.photo.endsWith('.pdf')) { %>
+                                                            <a href="<%= v.photo %>" target="_blank">View PDF</a>
+                                                        <% } else { %>
+                                                            <img src="<%= v.photo %>" alt="photo" style="max-width: 300px;">
+                                                        <% } %>
+                                                    <% } %>
+                                                </td>
+                                                <td>
+                                                    <p><strong>Other Documents:</strong></p>
+                                                    <% if (v.others && v.others.length > 0) { %>
+                                                        <% v.others.forEach(doc => { %>
+                                                            <% if (doc.endsWith('.pdf')) { %>
+                                                                <a href="<%= doc %>" target="_blank">View PDF</a><br>
+                                                            <% } else { %>
+                                                                <img src="<%= doc %>" alt="Other Document" style="max-width: 200px; margin: 10px;"><br>
+                                                            <% } %>
                                                         <% }) %>
+                                                    <% } else { %>
+                                                        <p>No other documents uploaded.</p>
+                                                    <% } %>
                                                 </td>
                                                 <td>
                                                     <a href="/billing/getbilling/<%=v._id%>"
