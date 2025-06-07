@@ -48,7 +48,7 @@
                                             <%=v.ServiceName%>
                                         </td>
                                         <td>
-                                            <p><strong>ID Proof:</strong></p>
+                                           
                                             <% if (v.id_proof) { %>
                                                 <% if (v.id_proof.endsWith('.pdf')) { %>
                                                     <a href="<%= v.id_proof %>" target="_blank">View PDF</a>
@@ -58,7 +58,7 @@
                                                             <% } %>
                                         </td>
                                         <td>
-                                            <p><strong>Address Proof:</strong></p>
+                                          
                                             <% if (v.address_proof) { %>
                                                 <% if (v.address_proof.endsWith('.pdf')) { %>
                                                     <a href="<%= v.address_proof %>" target="_blank">View PDF</a>
@@ -73,7 +73,7 @@
                                             <%=v.pan_card%>
                                         </td>
                                         <td>
-                                            <p><strong>banking Proof:</strong></p>
+                                           
                                             <% if (v.banking) { %>
                                                 <% if (v.banking.endsWith('.pdf')) { %>
                                                     <a href="<%= v.banking %>" target="_blank">View PDF</a>
@@ -84,7 +84,7 @@
 
                                         </td>
                                         <td>
-                                            <p><strong>photo:</strong></p>
+                                            
                                             <% if (v.photo) { %>
                                                 <% if (v.photo.endsWith('.pdf')) { %>
                                                     <a href="<%= v.photo %>" target="_blank">View PDF</a>
@@ -94,7 +94,7 @@
                                                             <% } %>
                                         </td>
                                         <td>
-                                            <p><strong>Other Documents:</strong></p>
+                                            
                                             <% if (v.others && v.others.length> 0) { %>
                                                 <% v.others.forEach(doc=> { %>
                                                     <% if (doc.endsWith('.pdf')) { %>
