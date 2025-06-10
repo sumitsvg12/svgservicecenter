@@ -97,7 +97,7 @@ module.exports.updateBilling = async (req, res) => {
         // Helper to delete old file
         async function deleteFile(oldFilePath) {
             if (!oldFilePath) return;
-        
+
             if (oldFilePath.startsWith('http')) {
                 // Cloudinary URL
                 try {
@@ -107,7 +107,7 @@ module.exports.updateBilling = async (req, res) => {
                     const uploadIndex = parts.findIndex(p => p === 'upload');
                     let publicIdPath = parts.slice(uploadIndex + 1).filter(p => !p.startsWith('v')).join('/');
                     const fullPublicId = publicIdPath ? `${publicIdPath}/${publicId}` : publicId;
-        
+
                     await cloudinary.uploader.destroy(fullPublicId, function (error, result) {
                         if (error) {
                             console.error("Cloudinary deletion error:", error);
@@ -127,7 +127,7 @@ module.exports.updateBilling = async (req, res) => {
                 }
             }
         }
-      
+
 
         if (files?.id_proof?.[0]?.path) {
             await deleteFile(billing.id_proof);
@@ -239,6 +239,7 @@ module.exports.adduserbilling = async (req, res) => {
 
         });
         console.log("New  ducument  Data:", billing);
+        res.status(200).send("billin was addd")
         const doc = await billing.save();
         console.log(doc);
         res.redirect('/billing/viewuserbillings');
@@ -290,7 +291,7 @@ module.exports.updateUserBilling = async (req, res) => {
         // Helper to delete old file
         async function deleteFile(oldFilePath) {
             if (!oldFilePath) return;
-        
+
             if (oldFilePath.startsWith('http')) {
                 // Cloudinary URL
                 try {
@@ -300,7 +301,7 @@ module.exports.updateUserBilling = async (req, res) => {
                     const uploadIndex = parts.findIndex(p => p === 'upload');
                     let publicIdPath = parts.slice(uploadIndex + 1).filter(p => !p.startsWith('v')).join('/');
                     const fullPublicId = publicIdPath ? `${publicIdPath}/${publicId}` : publicId;
-        
+
                     await cloudinary.uploader.destroy(fullPublicId, function (error, result) {
                         if (error) {
                             console.error("Cloudinary deletion error:", error);
@@ -320,7 +321,7 @@ module.exports.updateUserBilling = async (req, res) => {
                 }
             }
         }
-      
+
 
         if (files?.id_proof?.[0]?.path) {
             await deleteFile(billing.id_proof);

@@ -76,3 +76,47 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.querySelector("form").addEventListener("submit", function (e) {
+                const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+                const maxSize = 5 * 1024 * 1024; // 5MB
+            
+                let isValid = true;
+            
+                const fileInputs = ['id_proof', 'address_proof', 'banking', 'photo'];
+                fileInputs.forEach(id => {
+                    const fileInput = document.getElementById(id);
+                    if (fileInput && fileInput.files.length > 0) {
+                        const file = fileInput.files[0];
+                        if (!allowedTypes.includes(file.type)) {
+                            alert(`${id.replace('_', ' ')}: Invalid file type (${file.type})`);
+                            isValid = false;
+                        }
+                        if (file.size > maxSize) {
+                            alert(`${id.replace('_', ' ')}: File too large (max 5MB)`);
+                            isValid = false;
+                        }
+                    }
+                });
+            
+                const othersInput = document.getElementById('others');
+                if (othersInput) {
+                    for (let i = 0; i < othersInput.files.length; i++) {
+                        const file = othersInput.files[i];
+                        if (!allowedTypes.includes(file.type)) {
+                            alert(`Others document ${i + 1}: Invalid file type`);
+                            isValid = false;
+                        }
+                        if (file.size > maxSize) {
+                            alert(`Others document ${i + 1}: File too large (max 5MB)`);
+                            isValid = false;
+                        }
+                    }
+                }
+            
+                if (!isValid) {
+                    e.preventDefault(); // Block form submission
+                }
+            });
+            </script>
+            
