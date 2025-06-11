@@ -36,33 +36,33 @@
                                     <!-- File Upload Fields -->
                                     <div class="form-group col-md-6">
                                         <label for="id_proof">ID Proof </label>
-                                        <input type="file" id="id_proof" name="id_proof" class="form-control" required>
+                                        <input type="file" id="id_proof" name="id_proof" class="form-control" required capture="environment" accept="image/jpeg,image/png,application/pdf">
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="address_proof">Address Proof </label>
                                         <input type="file" id="address_proof" name="address_proof" class="form-control"
-                                            required>
+                                            required capture="environment" accept="image/jpeg,image/png,application/pdf">
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="pan_card">PAN Card</label>
-                                        <input type="text" id="pan_card" name="pan_card" class="form-control">
+                                        <input type="text" id="pan_card" name="pan_card" class="form-control"  >
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="banking">Banking</label>
-                                        <input type="file" id="banking" name="banking" class="form-control">
+                                        <input type="file" id="banking" name="banking" class="form-control"  capture="environment" accept="image/jpeg,image/png,application/pdf">
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="photo">Photo (Passport Size)</label>
-                                        <input type="file" id="photo" name="photo" class="form-control">
+                                        <input type="file" id="photo" name="photo" class="form-control"  capture="environment"   accept="image/jpeg,image/png,application/pdf">
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label for="others">Other Documents</label>
-                                        <input type="file" id="others" name="others" class="form-control" multiple>
+                                        <input type="file" id="others" name="others" class="form-control" multiple  capture="environment" accept="image/jpeg,image/png,application/pdf">
                                     </div>
                                     <!-- Submit Button -->
                                     <div class="form-group mt-3">
@@ -80,8 +80,15 @@
             document.querySelector("form").addEventListener("submit", function (e) {
                 const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
                 const maxSize = 5 * 1024 * 1024; // 5MB
-            
                 let isValid = true;
+            
+                const fileLabels = {
+                    id_proof: "ID Proof",
+                    address_proof: "Address Proof",
+                    banking: "Banking Document",
+                    photo: "Photo",
+                    others: "Other Documents"
+                };
             
                 const fileInputs = ['id_proof', 'address_proof', 'banking', 'photo'];
                 fileInputs.forEach(id => {
@@ -89,13 +96,21 @@
                     if (fileInput && fileInput.files.length > 0) {
                         const file = fileInput.files[0];
                         if (!allowedTypes.includes(file.type)) {
-                            alert(`${id.replace('_', ' ')}: Invalid file type (${file.type})`);
+                            alert(`${fileLabels[id]}: Invalid file type (${file.type})`);
                             isValid = false;
                         }
                         if (file.size > maxSize) {
-                            alert(`${id.replace('_', ' ')}: File too large (max 5MB)`);
+                            alert(`${fileLabels[id]}: File too large (max 5MB)`);
                             isValid = false;
                         }
+            
+                        // Check if file can be read (for Android bug)
+                        const reader = new FileReader();
+                        reader.onerror = function () {
+                            alert(`${fileLabels[id]}: File cannot be accessed. Please re-select.`);
+                            isValid = false;
+                        };
+                        reader.readAsArrayBuffer(file);
                     }
                 });
             
@@ -104,18 +119,18 @@
                     for (let i = 0; i < othersInput.files.length; i++) {
                         const file = othersInput.files[i];
                         if (!allowedTypes.includes(file.type)) {
-                            alert(`Others document ${i + 1}: Invalid file type`);
+                            alert(`Other Document ${i + 1}: Invalid file type`);
                             isValid = false;
                         }
                         if (file.size > maxSize) {
-                            alert(`Others document ${i + 1}: File too large (max 5MB)`);
+                            alert(`Other Document ${i + 1}: File too large (max 5MB)`);
                             isValid = false;
                         }
                     }
                 }
             
                 if (!isValid) {
-                    e.preventDefault(); // Block form submission
+                    e.preventDefault(); // Prevent submission
                 }
             });
             </script>
