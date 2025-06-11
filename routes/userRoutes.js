@@ -1,16 +1,19 @@
-const express=require('express');
+const express = require('express');
 
-const router=express.Router();
+const router = express.Router();
+const User = require('../models/User');
+const Admin = require('../models/Admin');
+const Income = require('../models/daily_incomes');
 const { ensureUser } = require('../middlewares/auth');
 
 const userController = require('../controllers/userController');
 
 router.get('/login', userController.showLogin);
 router.post('/login', userController.login);
-router.get('/header',userController.showHeader);
+router.get('/header', userController.showHeader);
 router.get('/dashboard', ensureUser, userController.dashboard);
 
-router.get('/password-change',ensureUser,userController.passwordchange);
+router.get('/password-change', ensureUser, userController.passwordchange);
 
 // POST update password
 router.post('/password-change', ensureUser, userController.updatePassword);
@@ -23,10 +26,42 @@ router.post('/forgot-password', userController.forgotPassword);
 router.get('/reset-password/:token', userController.resetPasswordForm);
 router.post('/reset-password/:token', userController.resetPassword);
 
-router.get('/myservicepage',userController.myservicepage)
-router.get('/logout',ensureUser,userController.logout);
+router.get('/myservicepage', userController.myservicepage)
+router.get('/logout', ensureUser, userController.logout);
+
+// routes/user.js
+router.get('/income', async (req, res) => {
+    const admin = req.session.admin;
+    const user = await User.find().lean();
+    const userId = req.session.userId;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const todayIncome = await Income.findOne({
+        user: userId,
+        date: { $gte: today, $lt: tomorrow }
+    });
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    const monthlyIncomes = await Income.find({
+        user: userId,
+        date: { $gte: firstDay, $lt: tomorrow }
+    });
+    const monthlyIncome = monthlyIncomes.reduce((sum, income) => sum + income.amount, 0);
+
+    res.render('user/income', {
+        todayIncome: todayIncome?.amount || 0,
+        monthlyIncome,
+        user,
+        admin
+    });
+});
+
 
 module.exports = router;
+
 
 
 

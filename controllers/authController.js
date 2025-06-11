@@ -1,10 +1,13 @@
 const bcrypt = require('bcrypt');
 const Admin = require('../models/Admin');
 const User = require('../models/User');
+const Income = require('../models/daily_incomes');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const crypto = require("crypto");
 const sendEmail = require('../utils/mailer');
+
+
 
 module.exports.showRegister = async (req, res) => {
   console.log("admin page")
@@ -293,6 +296,18 @@ module.exports.logout = async (req, res) => {
   });
 }
 
+exports.renderAddIncome = async (req, res) => {
+  const users = await User.find().lean();
+  const admin = req.session.admin;
+  res.render('admin/addincome', { users,admin });
+};
+exports.saveIncome = async (req, res) => {
+  const { user, amount } = req.body;
+  await Income.create({ user, amount });
+  res.redirect('/admin/add-income');
+};
+
+
 // Generate strong password with letters, numbers, and special characters
 function generateStrongPassword(length = 10) {
   const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -320,4 +335,6 @@ function generateStrongPassword(length = 10) {
     .sort(() => 0.5 - Math.random())
     .join('');
 }
+
+
 

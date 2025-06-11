@@ -1,8 +1,12 @@
-const express=require('express');
+const express = require('express');
 
-const router=express.Router();
+const router = express.Router();
 
-const adminController  = require('../controllers/authController');
+
+const Income = require('../models/daily_incomes');
+const User = require('../models/User');
+
+const adminController = require('../controllers/authController');
 const { ensureAdmin } = require('../middlewares/auth');
 
 console.log("Admin Routes Loaded");
@@ -18,7 +22,7 @@ router.post('/reset-password/:token', adminController.resetPassword);
 
 router.get('/login', adminController.showLogin);
 router.post('/login', adminController.login);
-router.get('/header',adminController.showHeader);
+router.get('/header', adminController.showHeader);
 router.get('/dashboard', ensureAdmin, adminController.dashboard);
 
 router.get('/add-user', ensureAdmin, adminController.showAddUser);
@@ -26,8 +30,22 @@ router.post('/add-user', ensureAdmin, adminController.addUser);
 router.get('/view-users', ensureAdmin, adminController.viewUsers);
 router.get('/edit-user/:id', ensureAdmin, adminController.renderEditUserPage);
 router.post('/edit-user/:id', ensureAdmin, adminController.updateUser);
-router.get('/deleteuser/:id',ensureAdmin,adminController.deleteUser);
+router.get('/deleteuser/:id', ensureAdmin, adminController.deleteUser);
 
 router.get('/logout', ensureAdmin, adminController.logout);
 
-module.exports=router;
+
+router.get('/add-income', ensureAdmin, adminController.renderAddIncome);
+router.post('/add-income', ensureAdmin, adminController.saveIncome);
+
+
+
+module.exports = router;
+
+
+
+
+
+
+
+
