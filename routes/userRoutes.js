@@ -44,16 +44,26 @@ router.get('/income', async (req, res) => {
         user: userId,
         date: { $gte: today, $lt: tomorrow }
     });
-    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-    const monthlyIncomes = await Income.find({
-        user: userId,
-        date: { $gte: firstDay, $lt: tomorrow }
+    const allIncomes = await Income.find({ user: userId }).lean();
+
+    const monthlySummary = {};
+    allIncomes.forEach(income => {
+        const date = new Date(income.date);
+        const month = date.getMonth();
+        const year = date.getFullYear();
+        const key = `${year}-${month + 1}`;
+        if (!monthlySummary[key]) {
+            monthlySummary[key] = 0;
+        }
+        monthlySummary[key] += income.amount;
     });
-    const monthlyIncome = monthlyIncomes.reduce((sum, income) => sum + income.amount, 0);
+    const currentKey = `${today.getFullYear()}-${today.getMonth() + 1}`;
+    const monthlyIncome = monthlySummary[currentKey] || 0;
 
     res.render('user/income', {
         todayIncome: todayIncome?.amount || 0,
         monthlyIncome,
+        monthlySummary,
         user,
         admin
     });

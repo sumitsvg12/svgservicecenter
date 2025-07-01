@@ -303,7 +303,7 @@ exports.renderAddIncome = async (req, res) => {
 };
 exports.saveIncome = async (req, res) => {
   const { user, amount } = req.body;
-  await Income.create({ user, amount });
+  await Income.create({ user, amount ,date: new Date()});
   res.redirect('/admin/add-income');
 };
 

@@ -21,22 +21,16 @@
 </head>
 <style>
   .card {
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background: #f8f9fa;
+    border: 1px solid #ccc;
     border-radius: 12px;
     padding: 20px;
-    margin: 15px 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-  }
-
-  .card:hover {
-    transform: scale(1.02);
+    margin: 10px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
 
   .card h4 {
     margin-bottom: 10px;
-    font-size: 20px;
     font-weight: 600;
     color: #333;
   }
@@ -45,7 +39,6 @@
     font-size: 24px;
     font-weight: bold;
     color: #28a745;
-    margin: 0;
   }
 
   .row-cards {
@@ -57,6 +50,36 @@
   .row-cards .card {
     flex: 1;
     min-width: 250px;
+  }
+
+  .income-card {
+    border: 1px solid #dee2e6;
+    background-color: #ffffff;
+    transition: transform 0.2s ease;
+  }
+
+  .income-card:hover {
+    transform: scale(1.02);
+  }
+
+  .income-amount {
+    font-size: 2rem;
+    /* Makes the income amount big */
+    font-weight: 700;
+    color: #28a745;
+    /* Bootstrap success green */
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 576px) {
+    .income-card {
+      font-size: 14px;
+      padding: 12px;
+    }
+
+    .income-amount {
+      font-size: 1.6rem;
+    }
   }
 </style>
 <style>
@@ -239,17 +262,41 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row-cards">
-            <div class="card">
+            <div class="card col-md-4">
               <h4>Today's Income</h4>
               <p>₹ <%= todayIncome %>
               </p>
             </div>
 
-            <div class="card">
+            <div class="card col-md-4">
               <h4>Monthly Income</h4>
               <p>₹ <%= monthlyIncome %>
               </p>
             </div>
+
+            <div class="col-md-6 card">
+              <h4>Current Month Income</h4>
+              <p>₹ <%= monthlyIncome %>
+              </p>
+            </div>
+          </div>
+          <hr class="my-4">
+          <h5 class="mb-3">Previous Monthly Incomes</h5>
+
+          <div class="row">
+            <% for (let key in monthlySummary) { %>
+              <div class="col-md-4 col-sm-6 col-12 mb-3">
+                <div class="income-card p-3 shadow-sm rounded bg-light">
+                  <h5 class="mb-1 text-muted">Month</h5>
+                  <h4>
+                    <%= key %>
+                  </h4>
+                  <h5 class="mt-3 mb-1 text-muted">Income</h5>
+                  <p class="income-amount">₹ <%= monthlySummary[key] %>
+                  </p>
+                </div>
+              </div>
+              <% } %>
           </div>
 
 
