@@ -239,10 +239,11 @@ module.exports.adduserbilling = async (req, res) => {
 
         });
         console.log("New  ducument  Data:", billing);
-        res.status(200).send("billin was addd")
-        const doc = await billing.save();
+
+        const doc = await billing.save(); // ✅ Save first
         console.log(doc);
-        res.redirect('/billing/viewuserbillings');
+
+        res.redirect('/billing/viewuserbillings'); // ✅ Only send this response
     }
     catch (err) {
         console.error("Error adding billing:", err);
