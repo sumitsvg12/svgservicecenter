@@ -222,22 +222,23 @@ module.exports.useradddocument = async (req, res) => {
 }
 module.exports.adduserbilling = async (req, res) => {
     try {
-        let files = req.files;
+        let files = req.files || {};
 
-        const othersFiles = files.others ? files.others.map(f => f.path) : [];
+        const othersFiles = Array.isArray(files.others) ? files.others.map(f => f.path) : [];
+
 
         const billing = new Billing({
             customer: req.body.customer,
             ServiceName: req.body.ServiceName,
             pan_card: req.body.pan_card,
-            id_proof: files?.id_proof?.[0]?.path || '',
-            address_proof: files?.address_proof?.[0]?.path || '',
-            banking: files.banking ? files.banking[0].path : '',
-            photo: files.photo ? files.photo[0].path : '',
+            id_proof: files.id_proof?.[0]?.path || '',
+            address_proof: files.address_proof?.[0]?.path || '',
+            banking: files.banking?.[0]?.path || '',
+            photo: files.photo?.[0]?.path || '',
             others: othersFiles,
             addedBy: req.session.userId,
-
         });
+        
         console.log("New  ducument  Data:", billing);
 
         const doc = await billing.save(); // ✅ Save first
@@ -246,8 +247,9 @@ module.exports.adduserbilling = async (req, res) => {
         res.redirect('/billing/viewuserbillings'); // ✅ Only send this response
     }
     catch (err) {
-        console.error("Error adding billing:", err);
-        res.status(500).send("Server error");
+        console.error("Billing Upload Error:", err.message);
+        console.error(err.stack);
+        res.status(500).send("Internal Server Error\n" + err.message);
     }
 }
 module.exports.viewuserbillings = async (req, res) => {
