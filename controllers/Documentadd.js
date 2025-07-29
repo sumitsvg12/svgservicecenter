@@ -221,11 +221,21 @@ module.exports.useradddocument = async (req, res) => {
     }
 }
 module.exports.adduserbilling = async (req, res) => {
+
     try {
         let files = req.files || {};
 
+    // ✅ Step 2: Debug logs
+    console.log("FILES RECEIVED:", files);
+    console.log("Customer:", req.body.customer);
+
+        if (!files.id_proof || !files.address_proof) {
+            return res.status(400).send("Required files missing: ID Proof or Address Proof");
+          }
+
         const othersFiles = Array.isArray(files.others) ? files.others.map(f => f.path) : [];
 
+      // Directory where files are stored (adjust path if needed)  
 
         const billing = new Billing({
             customer: req.body.customer,
@@ -238,20 +248,16 @@ module.exports.adduserbilling = async (req, res) => {
             others: othersFiles,
             addedBy: req.session.userId,
         });
-        
-        console.log("New  ducument  Data:", billing);
 
-        const doc = await billing.save(); // ✅ Save first
-        console.log(doc);
-
-        res.redirect('/billing/viewuserbillings'); // ✅ Only send this response
-    }
-    catch (err) {
-        console.error("Billing Upload Error:", err.message);
+        const doc = await billing.save();
+        console.log("Billing saved:", doc);
+        res.redirect('/billing/viewuserbillings');
+    } catch (err) {
+        console.error("🔥 Error saving billing:", err.message);
         console.error(err.stack);
-        res.status(500).send("Internal Server Error\n" + err.message);
+        res.status(500).send("Internal Server Error: " + err.message);
     }
-}
+};
 module.exports.viewuserbillings = async (req, res) => {
     try {
         const admin = req.session.admin;
