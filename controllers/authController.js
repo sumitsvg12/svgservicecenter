@@ -77,7 +77,7 @@ module.exports.handleForgotPassword = async (req, res) => {
     secure: false,
     auth: {
       user: 'sumitsvg2409@gmail.com',
-      pass: 'pkbbjadkbeiblhcw'  // Use App Password if 2FA enabled
+      pass: 'fnyqsxojoghmoumf'  // Use App Password if 2FA enabled
     },
     tls: {
       rejectUnauthorized: false
@@ -204,7 +204,7 @@ module.exports.addUser = async (req, res) => {
       secure: false,
       auth: {
         user: 'sumitsvg2409@gmail.com',       // replace with your email
-        pass: 'pkbbjadkbeiblhcw',          // use App Password (not your actual Gmail password)
+        pass: 'fnyqsxojoghmoumf',          // use App Password (not your actual Gmail password)
       },
       tls: {
         rejectUnauthorized: false
