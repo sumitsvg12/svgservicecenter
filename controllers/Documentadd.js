@@ -422,7 +422,7 @@ module.exports.updateBillingStatus = async (req, res) => {
                 secure: false,
                 auth: {
                     user: 'sumitsvg2409@gmail.com',
-                    pass: 'pkbbjadkbeiblhcw'  // Use App Password if 2FA enabled
+                    pass: 'fnyqsxojoghmoumf'  // Use App Password if 2FA enabled
                 },
                 tls: {
                     rejectUnauthorized: false
