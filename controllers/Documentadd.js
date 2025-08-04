@@ -249,9 +249,10 @@ module.exports.adduserbilling = async (req, res) => {
             others: othersFiles,
             addedBy: req.session.userId,
         });
- return res.status(200).send("FILE ADD SUCCESSFULL");
+
         const doc = await billing.save();
         console.log("Billing saved:", doc);
+         return res.status(200).send("FILE ADD SUCCESSFULL");
         res.redirect('/billing/viewuserbillings');
     } catch (err) {
         console.error("🔥 Error saving billing:", err.message);
