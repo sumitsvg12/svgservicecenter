@@ -226,8 +226,7 @@ module.exports.adduserbilling = async (req, res) => {
         let files = req.files || {};
 
     // ✅ Step 2: Debug logs
-            res.status(200).send("FILES RECEIVED:" +  Object.keys(files));
-        res.status(200).send("BODY:" +  req.body);
+         
     console.log("FILES RECEIVED:", files);
     console.log("Customer:", req.body.customer);
 
@@ -250,7 +249,7 @@ module.exports.adduserbilling = async (req, res) => {
             others: othersFiles,
             addedBy: req.session.userId,
         });
-
+ return res.status(200).send("FILE ADD SUCCESSFULL");
         const doc = await billing.save();
         console.log("Billing saved:", doc);
         res.redirect('/billing/viewuserbillings');
