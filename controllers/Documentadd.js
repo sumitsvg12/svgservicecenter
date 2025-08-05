@@ -257,7 +257,7 @@ module.exports.adduserbilling = async (req, res) => {
         const doc = await billing.save();
         if(doc){
             // If billing saved successfully, send success response
-            res.status(201).send("Billing saved successfully");
+          
             console.log("✅ Billing saved:", doc);
 
             // Step 7: Redirect
