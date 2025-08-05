@@ -221,23 +221,26 @@ module.exports.useradddocument = async (req, res) => {
     }
 }
 module.exports.adduserbilling = async (req, res) => {
-
-    try {
+    
+       try {
+        // Step 1: Get uploaded files or default to empty object
         let files = req.files || {};
 
-    // ✅ Step 2: Debug logs
-         
-    console.log("FILES RECEIVED:", files);
-    console.log("Customer:", req.body.customer);
+        // ✅ Step 2: Debug logs
+        res.status(200).send("FILES RECEIVED:" +  Object.keys(files));
+        res.status(200).send("BODY:" +  req.body);
+        console.log("FILES RECEIVED:", files);
+        console.log("Customer:", req.body.customer);
 
+        // ✅ Step 3: Required field check (prevent crashing if fields are missing)
         if (!files.id_proof || !files.address_proof) {
             return res.status(400).send("Required files missing: ID Proof or Address Proof");
-          }
+        }
 
+        // Step 4: Process optional fields
         const othersFiles = Array.isArray(files.others) ? files.others.map(f => f.path) : [];
 
-      // Directory where files are stored (adjust path if needed)  
-
+        // Step 5: Create billing entry
         const billing = new Billing({
             customer: req.body.customer,
             ServiceName: req.body.ServiceName,
@@ -250,11 +253,23 @@ module.exports.adduserbilling = async (req, res) => {
             addedBy: req.session.userId,
         });
 
+        // Step 6: Save to DB
         const doc = await billing.save();
-        console.log("Billing saved:", doc);
-         return res.status(200).send("FILE ADD SUCCESSFULL");
-        res.redirect('/billing/viewuserbillings');
+        if(doc){
+            // If billing saved successfully, send success response
+            res.status(201).send("Billing saved successfully");
+            console.log("✅ Billing saved:", doc);
+
+            // Step 7: Redirect
+            res.redirect('/billing/viewuserbillings');
+        }
+        else{
+            // If billing save failed, send error response
+            return res.status(500).send("Failed to save billing");
+        }
+      
     } catch (err) {
+        // Step 8: Error handling
         console.error("🔥 Error saving billing:", err.message);
         console.error(err.stack);
         res.status(500).send("Internal Server Error: " + err.message);
